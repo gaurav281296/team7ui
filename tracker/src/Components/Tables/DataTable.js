@@ -8,7 +8,7 @@ class DataTable extends Component {
   deleteItem = id => {
     let confirmDelete = window.confirm('Delete item forever?')
     if(confirmDelete){
-      fetch('https://team7-awaaz.herokuapp.com/project/'+id, {
+      fetch('https://team7-awaaz.herokuapp.com/project/'+id+'/', {
       method: 'delete'
     }).then(response => response.json())
       .then(item => {

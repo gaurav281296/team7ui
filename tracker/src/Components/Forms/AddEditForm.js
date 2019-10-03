@@ -47,7 +47,7 @@ class AddEditForm extends React.Component {
     data.append("man_hours",this.state.man_hours);
     data.append("image",document.querySelector('input[type="file"]').files[0]);
     data.append("owner",this.state.owner);
-    fetch('https://team7-awaaz.herokuapp.com/project/'+this.state.id, {
+    fetch('https://team7-awaaz.herokuapp.com/project/'+this.state.id+'/', {
       method: 'put',
       body: data
     }).then(response => response.json())
@@ -88,7 +88,7 @@ class AddEditForm extends React.Component {
         </FormGroup>
         <FormGroup>
           <Label for="image">Image</Label>
-          <Input type="file" name="image" id="image" onChange={this.onChange} value={this.state.image === null ? '' : this.state.image} placeholder="Upload an image for the project" />
+          <Input type="file" name="image" id="image" onChange={this.onChange} />
         </FormGroup>
         <FormGroup>
           <Label for="owner">owner</Label>
