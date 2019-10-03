@@ -1,78 +1,42 @@
-import React, { Component } from 'react'
-import { Container, Row, Col } from 'reactstrap'
-import ModalForm from './Components/Modals/Modal'
-import DataTable from './Components/Tables/DataTable'
-import { CSVLink } from "react-csv"
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
+import Create from './components/create.component';
+import Edit from './components/edit.component';
+import Index from './components/index.component';
 
 class App extends Component {
-  state = {
-    items: []
-  }
-
-  getItems(){
-    fetch('https://team7-awaaz.herokuapp.com/project/')
-      .then(response => response.json())
-      .then(items => this.setState({items}))
-      .catch(err => console.log(err))
-  }
-
-  addItemToState = (item) => {
-    this.setState(prevState => ({
-      items: [...prevState.items, item]
-    }))
-  }
-
-  updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.id === item.id)
-    const newArray = [
-    // destructure all items from beginning to the indexed item
-      ...this.state.items.slice(0, itemIndex),
-    // add the updated item to the array
-      item,
-    // add the rest of the items to the array from the index after the replaced item
-      ...this.state.items.slice(itemIndex + 1)
-    ]
-    this.setState({ items: newArray })
-  }
-
-  deleteItemFromState = (id) => {
-    const updatedItems = this.state.items.filter(item => item.id !== id)
-    this.setState({ items: updatedItems })
-  }
-
-  componentDidMount(){
-    this.getItems()
-  }
-
   render() {
     return (
-      <Container className="App">
-        <Row>
-          <Col>
-            <h1 style={{margin: "20px 0"}}>Projects</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <CSVLink
-              filename={"db.csv"}
-              color="primary"
-              style={{float: "left", marginRight: "10px"}}
-              className="btn btn-primary"
-              data={this.state.items}>
-              Download CSV
-            </CSVLink>
-            <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
-          </Col>
-        </Row>
-      </Container>
-    )
+      <Router>
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <Link to={'/'} className="navbar-brand">React CRUD Example</Link>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                  <Link to={'/'} className="nav-link">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/create'} className="nav-link">Create</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/index'} className="nav-link">Index</Link>
+                </li>
+              </ul>
+            </div>
+          </nav> <br/>
+          <h2>Welcome to React CRUD Tutorial</h2> <br/>
+          <Switch>
+              <Route exact path='/create' component={ Create } />
+              <Route path='/edit/:id' component={ Edit } />
+              <Route path='/index' component={ Index } />
+          </Switch>
+        </div>
+      </Router>
+    );
   }
 }
 
-export default App
+export default App;
