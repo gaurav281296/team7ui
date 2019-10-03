@@ -15,6 +15,54 @@ export default class Create extends Component {
     onChange = e => {
         this.setState({[e.target.name]: e.target.value})
     }
+    
+    submitFormAdd = e => {
+        e.preventDefault()
+        var data = new FormData();
+        data.append("name",this.state.name);
+        data.append("description",this.state.description);
+        data.append("man_hours",this.state.man_hours);
+        data.append("image",document.querySelector('input[type="file"]').files[0]);
+        data.append("owner",this.state.owner);
+        fetch('https://team7-awaaz.herokuapp.com/project/', {
+          method: 'post',
+          body: data
+        }).then(
+            response => response.json()
+        ).then(item => {
+            if(Array.isArray(item)) {
+              this.props.addItemToState(item[0])
+              this.props.toggle()
+            } else {
+              console.log('failure')
+            }
+        }).catch(err => console.log(err))
+    }
+    
+    submitFormEdit = e => {
+        e.preventDefault()
+        var data = new FormData();
+        data.append("name",this.state.name);
+        data.append("description",this.state.description);
+        data.append("man_hours",this.state.man_hours);
+        data.append("image",document.querySelector('input[type="file"]').files[0]);
+        data.append("owner",this.state.owner);
+        fetch('https://team7-awaaz.herokuapp.com/project/'+this.state.id+'/', {
+            method: 'put',
+            body: data
+        }).then(
+            response => response.json()
+        ).then(item => {
+            if(Array.isArray(item)) {
+                // console.log(item[0])
+                this.props.updateState(item[0])
+                this.props.toggle()
+            } else {
+                console.log('failure')
+            }
+        }).catch(err => console.log(err))
+    }
+
 
     componentDidMount() {
         // if item exists, populate the state with proper data
