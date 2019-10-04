@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TaskRow from './TaskRow';
-import TaskFrom from './TaskForm'
+import TaskForm from './TaskForm'
 
 export default class TaskTable extends Component {
 
@@ -55,7 +55,7 @@ export default class TaskTable extends Component {
                 { this.tabRow() }
               </tbody>
             </table>
-            <TaskFrom buttonLabel="Add Task" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
+            <TaskForm buttonLabel="Add Task" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
           </div>
         );
     }

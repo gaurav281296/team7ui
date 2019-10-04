@@ -34,9 +34,9 @@ export default class Task extends Component {
           body: data
         }).then(
             response => response.json()
-        ).then(projects => {
-            if(Array.isArray(projects)) {
-              this.props.addprojectsToState(projects[0])
+        ).then(items => {
+            if(Array.isArray(items)) {
+              this.props.additemsToState(items[0])
               this.props.toggle()
             } else {
               console.log('failure')
@@ -59,10 +59,10 @@ export default class Task extends Component {
             body: data
         }).then(
             response => response.json()
-        ).then(projects => {
-            if(Array.isArray(projects)) {
+        ).then(items => {
+            if(Array.isArray(items)) {
                 // console.log(projects[0])
-                this.props.updateState(projects[0])
+                this.props.updateState(items[0])
                 this.props.toggle()
             } else {
                 console.log('failure')

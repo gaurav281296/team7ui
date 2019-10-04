@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ProjectRow from './ProjectRow';
-import ProjectForm from './ProjectForm'
+import UserRow from './UserRow';
+import UserForm from './UserForm'
 
-export default class ProjectTable extends Component {
+export default class UserTable extends Component {
 
     constructor(props) {
         super(props);
@@ -10,15 +10,15 @@ export default class ProjectTable extends Component {
     }
 
     componentDidMount() {
-        fetch('https://team7-awaaz.herokuapp.com/project/')
+        fetch('https://team7-awaaz.herokuapp.com/user/')
         .then(response => response.json())
         .then(items => this.setState({items}))
         .catch(err => console.log(err))
     }
 
     tabRow() {
-        return this.state.items.map(function(project, id) {
-            return <ProjectRow obj={project} key={id} />;
+        return this.state.items.map(function(user, id) {
+            return <UserRow obj={user} key={id} />;
         });
     }
 
@@ -36,16 +36,13 @@ export default class ProjectTable extends Component {
     render() {
         return (
           <div>
-            <h3 align="center">Project List</h3>
+            <h3 align="center">User List</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
                 <tr>
                   <th>id</th>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Man hours</th>
-                  <th>Image</th>
-                  <th>Owner</th>
+                  <th>Username</th>
+                  <th>Email</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -53,7 +50,7 @@ export default class ProjectTable extends Component {
                 { this.tabRow() }
               </tbody>
             </table>
-            <ProjectForm buttonLabel="Add Project" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
+            <UserForm buttonLabel="Add User" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
           </div>
         );
     }
