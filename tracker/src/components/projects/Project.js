@@ -10,7 +10,8 @@ export default class Project extends Component {
         description: '',
         man_hours: '',
         image: '',
-        owner: ''
+        owner: '',
+        possibleOwners: []
     }
 
     onChange = e => {
@@ -64,16 +65,38 @@ export default class Project extends Component {
         }).catch(err => console.log(err))
     }
 
+    componentWillMount() {
+        let possibleOwners = []
+        fetch('https://team7-awaaz.herokuapp.com/user/')
+        .then(response => {
+            return response.json();
+        }).then(data => {
+            possibleOwners = data.map((item) => {
+                return item;
+            });
+            console.log(possibleOwners)
+            this.setState({
+                possibleOwners: possibleOwners,
+            });
+        }).catch(err => console.log(err))
+    }
+
 
     componentDidMount() {
         // if item exists, populate the state with proper data
         if(this.props.item) {
-          const { id, name, description, man_hours, image, owner } = this.props.item
-          this.setState({ id, name, description, man_hours, image, owner })
+            const { id, name, description, man_hours, image, owner } = this.props.item
+            this.setState({ id, name, description, man_hours, image, owner })
         }
     }
 
     render() {
+
+        let possibleOwners = this.state.possibleOwners;
+        let optionItems = possibleOwners.map((item) =>
+                <option key={item.id} value={item.id}>{item.username}</option>
+            );
+
         return (
             <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
                 <FormGroup>
@@ -94,7 +117,9 @@ export default class Project extends Component {
                 </FormGroup>
                 <FormGroup>
                 <Label for="owner">Owner</Label>
-                <Input type="text" name="owner" id="owner" onChange={this.onChange} value={this.state.owner === null ? '' : this.state.owner}/>
+                <Input type="select" name="owner" id="owner" onChange={this.onChange} >
+                        {optionItems}
+                </Input>
                 </FormGroup>
                 <Button>Submit</Button>
             </Form>
