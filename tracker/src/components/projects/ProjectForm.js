@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
-import Project from './Project.component';
+import Project from './Project';
 
 class ProjectForm extends Component {
   constructor(props) {

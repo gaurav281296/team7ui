@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProjectRow from './ProjectRow';
-import ProjectFrom from './ProjectForm.component'
+import ProjectFrom from './ProjectForm'
 
 export default class ProjectsTable extends Component {
 

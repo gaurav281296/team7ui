@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import Project from './components/projects/Project.component';
-import ProjectsTable from './components/projects/ProjectTable.component';
+import ProjectsTable from './components/projects/ProjectTable';
 
 class App extends Component {
   render() {
@@ -21,14 +20,14 @@ class App extends Component {
                   <Link to={'/projects'} className="nav-link">Projects</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/create'} className="nav-link">Create</Link>
+                  <Link to={'/tasks'} className="nav-link">Tasks</Link>
                 </li>
               </ul>
             </div>
           </nav> <br/>
           <h2>Welcome to React CRUD Tutorial</h2> <br/>
           <Switch>
-              <Route exact path='/create' component={ Project } />
+              <Route exact path='/tasks' component={ ProjectsTable } />
               <Route exact path='/projects' component={ ProjectsTable } />
           </Switch>
         </div>

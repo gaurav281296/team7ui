@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProjectFrom from './ProjectForm.component'
+import ProjectFrom from './ProjectForm'
 import { Button } from 'reactstrap';
 
 class ProjectRow extends Component {
