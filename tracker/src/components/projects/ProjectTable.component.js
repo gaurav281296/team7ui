@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
-import TableRow from './TableRow';
+import ProjectRow from './ProjectRow';
+import ProjectFrom from './ProjectForm.component'
 
-export default class Index extends Component {
+export default class ProjectsTable extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { projects: []};
+        this.state = { items: []};
     }
 
     componentDidMount() {
         fetch('https://team7-awaaz.herokuapp.com/project/')
         .then(response => response.json())
-        .then(projects => this.setState({projects}))
+        .then(items => this.setState({items}))
         .catch(err => console.log(err))
     }
 
     tabRow() {
-        return this.state.projects.map(function(object, id) {
-            return <TableRow obj={object} key={id} />;
+        return this.state.items.map(function(project, id) {
+            return <ProjectRow obj={project} key={id} />;
         });
+    }
+
+    addItemToState = (item) => {
+      this.setState(prevState => ({
+        items: [...prevState.items, item]
+      }))
+    }
+
+    deleteItemFromState = (id) => {
+      const updatedItems = this.state.items.filter(item => item.id !== id)
+      this.setState({ items: updatedItems })
     }
 
     render() {
@@ -34,13 +46,14 @@ export default class Index extends Component {
                   <th>Man hours</th>
                   <th>Image</th>
                   <th>Owner</th>
-                  <th colSpan="2">Action</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 { this.tabRow() }
               </tbody>
             </table>
+            <ProjectFrom buttonLabel="Add Project" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
           </div>
         );
     }
