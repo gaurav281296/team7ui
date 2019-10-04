@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-export default class Project extends Component {
+export default class Task extends Component {
 
     //this.props.match.params.id
     state = {
@@ -9,8 +9,10 @@ export default class Project extends Component {
         name: '',
         description: '',
         man_hours: '',
-        image: '',
-        owner: ''
+        project: '',
+        assignee: '',
+        start: '',
+        end: ''
     }
 
     onChange = e => {
@@ -23,9 +25,11 @@ export default class Project extends Component {
         data.append("name",this.state.name);
         data.append("description",this.state.description);
         data.append("man_hours",this.state.man_hours);
-        data.append("image",document.querySelector('input[type="file"]').files[0]);
-        data.append("owner",this.state.owner);
-        fetch('https://team7-awaaz.herokuapp.com/project/', {
+        data.append("project",this.state.project);
+        data.append("assignee",this.state.assignee);
+        data.append("start",this.state.start);
+        data.append("end",this.state.end);
+        fetch('https://team7-awaaz.herokuapp.com/task/', {
           method: 'post',
           body: data
         }).then(
@@ -46,9 +50,11 @@ export default class Project extends Component {
         data.append("name",this.state.name);
         data.append("description",this.state.description);
         data.append("man_hours",this.state.man_hours);
-        data.append("image",document.querySelector('input[type="file"]').files[0]);
-        data.append("owner",this.state.owner);
-        fetch('https://team7-awaaz.herokuapp.com/project/'+this.state.id+'/', {
+        data.append("project",this.state.project);
+        data.append("assignee",this.state.assignee);
+        data.append("start",this.state.start);
+        data.append("end",this.state.end);
+        fetch('https://team7-awaaz.herokuapp.com/task/'+this.state.id+'/', {
             method: 'put',
             body: data
         }).then(
@@ -68,8 +74,8 @@ export default class Project extends Component {
     componentDidMount() {
         // if item exists, populate the state with proper data
         if(this.props.item) {
-          const { id, name, description, man_hours, image, owner } = this.props.item
-          this.setState({ id, name, description, man_hours, image, owner })
+          const { id, name, description, man_hours, project, assignee, start, end } = this.props.item
+          this.setState({ id, name, description, man_hours, project, assignee, start, end })
         }
     }
 
@@ -89,12 +95,20 @@ export default class Project extends Component {
                 <Input type="text" name="man_hours" id="man_hours" onChange={this.onChange} value={this.state.man_hours === null ? '' : this.state.man_hours}  />
                 </FormGroup>
                 <FormGroup>
-                <Label for="image">Image</Label>
-                <Input type="file" name="image" id="image" onChange={this.onChange} />
+                <Label for="project">Project</Label>
+                <Input type="text" name="project" id="project" onChange={this.onChange} value={this.state.project === null ? '' : this.state.project} />
                 </FormGroup>
                 <FormGroup>
-                <Label for="owner">Owner</Label>
-                <Input type="text" name="owner" id="owner" onChange={this.onChange} value={this.state.owner === null ? '' : this.state.owner}/>
+                <Label for="assignee">Assignee</Label>
+                <Input type="text" name="assignee" id="assignee" onChange={this.onChange} value={this.state.assignee === null ? '' : this.state.assignee}/>
+                </FormGroup>
+                <FormGroup>
+                <Label for="start">Start</Label>
+                <Input type="date" name="start" id="start" onChange={this.onChange} value={this.state.start === null ? '' : this.state.start}/>
+                </FormGroup>
+                <FormGroup>
+                <Label for="end">End</Label>
+                <Input type="date" name="end" id="end" onChange={this.onChange} value={this.state.end === null ? '' : this.state.end}/>
                 </FormGroup>
                 <Button>Submit</Button>
             </Form>

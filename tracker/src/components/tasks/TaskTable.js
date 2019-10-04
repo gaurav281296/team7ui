@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ProjectRow from './ProjectRow';
-import ProjectFrom from './ProjectForm'
+import TaskRow from './TaskRow';
+import TaskFrom from './TaskForm'
 
-export default class ProjectTable extends Component {
+export default class TaskTable extends Component {
 
     constructor(props) {
         super(props);
@@ -10,15 +10,15 @@ export default class ProjectTable extends Component {
     }
 
     componentDidMount() {
-        fetch('https://team7-awaaz.herokuapp.com/project/')
+        fetch('https://team7-awaaz.herokuapp.com/task/')
         .then(response => response.json())
         .then(items => this.setState({items}))
         .catch(err => console.log(err))
     }
 
     tabRow() {
-        return this.state.items.map(function(project, id) {
-            return <ProjectRow obj={project} key={id} />;
+        return this.state.items.map(function(task, id) {
+            return <TaskRow obj={task} key={id} />;
         });
     }
 
@@ -36,7 +36,7 @@ export default class ProjectTable extends Component {
     render() {
         return (
           <div>
-            <h3 align="center">Project List</h3>
+            <h3 align="center">Task List</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
                 <tr>
@@ -44,8 +44,10 @@ export default class ProjectTable extends Component {
                   <th>Name</th>
                   <th>Description</th>
                   <th>Man hours</th>
-                  <th>Image</th>
-                  <th>Owner</th>
+                  <th>Project</th>
+                  <th>Assignee</th>
+                  <th>Start</th>
+                  <th>End</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -53,7 +55,7 @@ export default class ProjectTable extends Component {
                 { this.tabRow() }
               </tbody>
             </table>
-            <ProjectFrom buttonLabel="Add Project" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
+            <TaskFrom buttonLabel="Add Task" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
           </div>
         );
     }

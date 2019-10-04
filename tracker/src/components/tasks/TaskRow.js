@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ProjectForm from './ProjectForm'
+import TaskForm from './TaskForm'
 import { Button } from 'reactstrap';
 
 class ProjectRow extends Component {
 
     deleteItem = id => {
-        let confirmDelete = window.confirm('Delete Project forever?')
+        let confirmDelete = window.confirm('Delete Task forever?')
         if(confirmDelete) {
-          fetch('https://team7-awaaz.herokuapp.com/project/'+id, {
+          fetch('https://team7-awaaz.herokuapp.com/task/'+id, {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
@@ -38,14 +38,20 @@ class ProjectRow extends Component {
                     {this.props.obj.man_hours}
                 </td>
                 <td>
-                    {this.props.obj.image}
+                    {this.props.obj.project}
                 </td>
                 <td>
-                    {this.props.obj.owner}
+                    {this.props.obj.assignee}
+                </td>
+                <td>
+                    {this.props.obj.start}
+                </td>
+                <td>
+                    {this.props.obj.end}
                 </td>
                 <td>
                     <div style={{width:"220px"}}>
-                        <ProjectForm buttonLabel="Edit" item={this.props.obj} updateState={this.props.updateState}/>
+                        <TaskForm buttonLabel="Edit" item={this.props.obj} updateState={this.props.updateState}/>
                         {' '}
                         <Button color="danger" onClick={() => this.deleteItem(this.props.obj.id)}>Delete</Button>
                     </div>

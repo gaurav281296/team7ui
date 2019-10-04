@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import ProjectsTable from './components/projects/ProjectTable';
+import ProjectTable from './components/projects/ProjectTable';
+import TaskTable from './components/tasks/TaskTable';
 
 class App extends Component {
   render() {
@@ -25,10 +26,10 @@ class App extends Component {
               </ul>
             </div>
           </nav> <br/>
-          <h2>Welcome to React CRUD Tutorial</h2> <br/>
+          <h2>Welcome to Awaaz.de</h2> <br/>
           <Switch>
-              <Route exact path='/tasks' component={ ProjectsTable } />
-              <Route exact path='/projects' component={ ProjectsTable } />
+              <Route exact path='/tasks' component={ TaskTable } />
+              <Route exact path='/projects' component={ ProjectTable } />
           </Switch>
         </div>
       </Router>
