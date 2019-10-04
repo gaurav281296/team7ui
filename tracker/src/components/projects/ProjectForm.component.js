@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
-import AddEditForm from '../Forms/AddEditForm'
+import Project from './Project.component';
 
-class ModalForm extends Component {
+class ProjectForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,14 +30,14 @@ class ModalForm extends Component {
                   onClick={this.toggle}
                   style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
-        title = 'Edit Item'
+        title = 'Edit Project'
       } else {
         button = <Button
                   color="success"
                   onClick={this.toggle}
                   style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
-        title = 'Add New Item'
+        title = 'Add New Project'
       }
 
 
@@ -47,9 +47,7 @@ class ModalForm extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
           <ModalBody>
-            <AddEditForm
-              addItemToState={this.props.addItemToState}
-              updateState={this.props.updateState}
+            <Project
               toggle={this.toggle}
               item={this.props.item} />
           </ModalBody>
@@ -59,4 +57,4 @@ class ModalForm extends Component {
   }
 }
 
-export default ModalForm
+export default ProjectForm
