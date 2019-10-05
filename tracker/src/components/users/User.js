@@ -32,6 +32,7 @@ export default class User extends Component {
               console.log('failure')
             }
         }).catch(err => console.log(err))
+        this.props.toggle();
     }
     
     submitFormEdit = e => {
@@ -53,6 +54,7 @@ export default class User extends Component {
                 console.log('failure')
             }
         }).catch(err => console.log(err))
+        this.props.toggle();
     }
 
 
