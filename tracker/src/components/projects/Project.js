@@ -47,10 +47,11 @@ export default class Project extends Component {
         data.append("name",this.state.name);
         data.append("description",this.state.description);
         data.append("man_hours",this.state.man_hours);
-        data.append("image",document.querySelector('input[type="file"]').files[0]);
+        if(document.querySelector('input[type="file"]').files[0])
+            data.append("image",document.querySelector('input[type="file"]').files[0]);
         data.append("owner",this.state.owner);
         fetch('https://team7-awaaz.herokuapp.com/project/'+this.state.id+'/', {
-            method: 'put',
+            method: 'PATCH',
             body: data
         }).then(
             response => response.json()
