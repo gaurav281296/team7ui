@@ -27,19 +27,14 @@ export default class Project extends Component {
         data.append("image",document.querySelector('input[type="file"]').files[0]);
         data.append("owner",this.state.owner);
         fetch('https://team7-awaaz.herokuapp.com/project/', {
-          method: 'post',
-          body: data
+            method: 'post',
+            body: data
         }).then(
             response => response.json()
-        ).then(projects => {
-            if(Array.isArray(projects)) {
-              this.props.addprojectsToState(projects[0])
-              this.props.toggle()
-            } else {
-              console.log('failure')
-            }
+        ).then(project => {
+            this.props.addItemToState(project)
+            this.props.toggle()
         }).catch(err => console.log(err))
-        this.props.toggle();
     }
     
     submitFormEdit = e => {
@@ -56,16 +51,10 @@ export default class Project extends Component {
             body: data
         }).then(
             response => response.json()
-        ).then(projects => {
-            if(Array.isArray(projects)) {
-                // console.log(projects[0])
-                this.props.updateState(projects[0])
-                this.props.toggle()
-            } else {
-                console.log('failure')
-            }
+        ).then(project => {
+            this.props.updateState(project)
+            this.props.toggle()
         }).catch(err => console.log(err))
-        this.props.toggle();
     }
 
     componentWillMount() {
