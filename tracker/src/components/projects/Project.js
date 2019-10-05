@@ -75,7 +75,6 @@ export default class Project extends Component {
             possibleOwners = data.map((item) => {
                 return item;
             });
-            console.log(possibleOwners)
             this.setState({
                 possibleOwners: possibleOwners,
             });

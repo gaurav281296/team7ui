@@ -12,7 +12,9 @@ export default class Task extends Component {
         project: '',
         assignee: '',
         start: '',
-        end: ''
+        end: '',
+        possibleProjects: [],
+        posibbleAssignees: []
     }
 
     onChange = e => {
@@ -70,6 +72,34 @@ export default class Task extends Component {
         }).catch(err => console.log(err))
     }
 
+    componentWillMount() {
+        let posibbleAssignees = []
+        let possibleProjects = []
+        fetch('https://team7-awaaz.herokuapp.com/user/')
+        .then(response => {
+            return response.json();
+        }).then(data => {
+            posibbleAssignees = data.map((item) => {
+                return item;
+            });
+            this.setState({
+                posibbleAssignees: posibbleAssignees,
+            });
+        }).catch(err => console.log(err))
+
+        fetch('https://team7-awaaz.herokuapp.com/project/')
+        .then(response => {
+            return response.json();
+        }).then(data => {
+            possibleProjects = data.map((item) => {
+                return item;
+            });
+            this.setState({
+                possibleProjects: possibleProjects,
+            });
+        }).catch(err => console.log(err))
+    }
+
 
     componentDidMount() {
         // if item exists, populate the state with proper data
@@ -80,6 +110,19 @@ export default class Task extends Component {
     }
 
     render() {
+
+        let posibbleAssignees = this.state.posibbleAssignees;
+        let possibleProjects = this.state.possibleProjects;
+        let optionAssignees = posibbleAssignees.map((item) =>
+                <option key={item.id} value={item.id}>{item.username}</option>
+            );
+
+        let optionProjects = possibleProjects.map((item) =>
+                <option key={item.id} value={item.id}>{item.name}</option>
+            );
+
+
+
         return (
             <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
                 <FormGroup>
@@ -96,11 +139,15 @@ export default class Task extends Component {
                 </FormGroup>
                 <FormGroup>
                 <Label for="project">Project</Label>
-                <Input type="text" name="project" id="project" onChange={this.onChange} value={this.state.project === null ? '' : this.state.project} />
+                <Input type="select" name="project" id="project" onChange={this.onChange}>
+                    {optionProjects}
+                </Input>
                 </FormGroup>
                 <FormGroup>
                 <Label for="assignee">Assignee</Label>
-                <Input type="text" name="assignee" id="assignee" onChange={this.onChange} value={this.state.assignee === null ? '' : this.state.assignee}/>
+                <Input type="select" name="assignee" id="assignee" onChange={this.onChange} >
+                    {optionAssignees}
+                </Input>
                 </FormGroup>
                 <FormGroup>
                 <Label for="start">Start</Label>
