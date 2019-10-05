@@ -15,12 +15,6 @@ class App extends Component {
             <Link to={'/'} className="navbar-brand">Awaaz Tracker</Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                  <Link to={'/'} className="nav-link">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={'/project'} className="nav-link">Projects</Link>
-                </li>
                 <li className="nav-item">
                   <Link to={'/task'} className="nav-link">Tasks</Link>
                 </li>
@@ -33,11 +27,12 @@ class App extends Component {
           <h2>Welcome to Awaaz.de</h2> <br/>
           <Switch>
               <Route exact path='/task' component={ TaskTable } />
-              <Route exact path='/project' component={ ProjectTable } />
+              <Route exact path='/' component={ ProjectTable } />
               <Route exact path='/user' component={ UserTable } />
           </Switch>
         </div>
       </Router>
+      
     );
   }
 }
