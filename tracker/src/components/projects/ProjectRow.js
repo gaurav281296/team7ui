@@ -38,7 +38,7 @@ class ProjectRow extends Component {
                     {this.props.obj.man_hours}
                 </td>
                 <td>
-                    {this.props.obj.image}
+                    <img src={this.props.obj.image} alt="Logo"  style={{width: 50, height: 50}} />
                 </td>
                 <td>
                     {this.props.obj.owner}

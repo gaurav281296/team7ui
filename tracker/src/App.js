@@ -26,9 +26,9 @@ class App extends Component {
           </nav> <br/>
           <h2>Welcome to Awaaz.de</h2> <br/>
           <Switch>
-              <Route exact path='/task' component={ TaskTable } />
               <Route exact path='/' component={ ProjectTable } />
-              <Route exact path='/user' component={ UserTable } />
+              <Route path='/task' component={ TaskTable } />
+              <Route path='/user' component={ UserTable } />
           </Switch>
         </div>
       </Router>
