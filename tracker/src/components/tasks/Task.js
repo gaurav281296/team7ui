@@ -36,14 +36,9 @@ export default class Task extends Component {
         }).then(
             response => response.json()
         ).then(items => {
-            if(Array.isArray(items)) {
-              this.props.additemsToState(items[0])
-              this.props.toggle()
-            } else {
-              console.log('failure')
-            }
+            this.props.addItemToState(items)
+            this.props.toggle()
         }).catch(err => console.log(err))
-        this.props.toggle();
     }
     
     submitFormEdit = e => {
@@ -62,15 +57,9 @@ export default class Task extends Component {
         }).then(
             response => response.json()
         ).then(items => {
-            if(Array.isArray(items)) {
-                // console.log(projects[0])
-                this.props.updateState(items[0])
-                this.props.toggle()
-            } else {
-                console.log('failure')
-            }
+            this.props.updateState(items)
+            this.props.toggle()
         }).catch(err => console.log(err))
-        this.props.toggle();
     }
 
     componentWillMount() {

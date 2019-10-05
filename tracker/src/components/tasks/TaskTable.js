@@ -12,29 +12,23 @@ export default class TaskTable extends Component {
     }
 
     componentDidMount() {
-
+        let url = ''
         if(this.props.match.params.id) {
-          fetch('https://team7-awaaz.herokuapp.com/project/'+this.props.match.params.id+'/task/')
-          .then(response => response.json())
-          .then(items => {
-            this.setState({items: items});
-          })
-          .catch(err => console.log(err))
+          url = 'https://team7-awaaz.herokuapp.com/project/'+this.props.match.params.id+'/task/'
         } else {
-          fetch('https://team7-awaaz.herokuapp.com/task/')
-          .then(response => response.json())
-          .then(items => {
-
-            this.setState({items: items});
-          })
-          .catch(err => console.log(err))
+          url = 'https://team7-awaaz.herokuapp.com/task/'
         }
-        
+
+        fetch(url)
+        .then(response => response.json())
+        .then(items => {
+          this.setState({items: items});
+        }).catch(err => console.log(err))
     }
     
-    tabRow() {
+    tabRow(updateState, deleteItemFromState) {
         return this.state.items.map(function(task, id) {
-            return <TaskRow obj={task} key={id} />;
+            return <TaskRow obj={task} key={id} updateState={updateState} deleteItemFromState={deleteItemFromState}/>;
         });
     }
 
@@ -44,13 +38,26 @@ export default class TaskTable extends Component {
       }))
     }
 
+    updateState = (item) => {
+      const itemIndex = this.state.items.findIndex(data => data.id === item.id)
+      const newArray = [
+      // destructure all items from beginning to the indexed item
+        ...this.state.items.slice(0, itemIndex),
+      // add the updated item to the array
+        item,
+      // add the rest of the items to the array from the index after the replaced item
+        ...this.state.items.slice(itemIndex + 1)
+      ]
+      this.setState({ items: newArray })
+    }
+
     deleteItemFromState = (id) => {
       const updatedItems = this.state.items.filter(item => item.id !== id)
       this.setState({ items: updatedItems })
     }
 
     render() {
-        let display = 'All List';
+        let display = 'All Tasks';
         if (this.props.match.params.id) {
           display = 'Tasks in the Project';
         }
@@ -72,10 +79,10 @@ export default class TaskTable extends Component {
                 </tr>
               </thead>
               <tbody>
-                { this.tabRow() }
+                { this.tabRow(this.updateState, this.deleteItemFromState) }
               </tbody>
             </table>
-            <TaskForm buttonLabel="Add Task" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
+            <TaskForm buttonLabel="Add Task" addItemToState={this.addItemToState} />
           </div>
         );
     }

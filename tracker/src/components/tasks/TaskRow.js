@@ -12,11 +12,8 @@ class ProjectRow extends Component {
           headers: {
             'Content-Type': 'application/json'
           }
-        })
-          .then(response => response.json())
-          .then(item => {
-            this.props.deleteItemFromState(id)
-          })
+        }).then(response => response.json())
+          .then(this.props.deleteItemFromState(id))
           .catch(err => console.log(err))
         }
     }
