@@ -23,10 +23,10 @@ class ProjectRow extends Component {
         return (
             <tr>
                 <td>
-                <Link to={'/project/'+this.props.obj.id+'/task/'}>{this.props.obj.id}</Link>
+                    {this.props.obj.id}
                 </td>
                 <td>
-                    {this.props.obj.name}
+                    <Link to={'/project/'+this.props.obj.id+'/task/'}>{this.props.obj.name}</Link>
                 </td>
                 <td>
                     {this.props.obj.description}
