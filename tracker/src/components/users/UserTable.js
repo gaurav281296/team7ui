@@ -16,9 +16,9 @@ export default class UserTable extends Component {
         .catch(err => console.log(err))
     }
 
-    tabRow() {
+    tabRow(updateState, deleteItemFromState) {
         return this.state.items.map(function(user, id) {
-            return <UserRow obj={user} key={id} />;
+            return <UserRow obj={user} key={id} updateState={updateState} deleteItemFromState={deleteItemFromState} />;
         });
     }
 
@@ -28,10 +28,26 @@ export default class UserTable extends Component {
       }))
     }
 
+    updateState = (item) => {
+      const itemIndex = this.state.items.findIndex(data => data.id === item.id)
+      const newArray = [
+      // destructure all items from beginning to the indexed item
+        ...this.state.items.slice(0, itemIndex),
+      // add the updated item to the array
+        item,
+      // add the rest of the items to the array from the index after the replaced item
+        ...this.state.items.slice(itemIndex + 1)
+      ]
+      this.setState({ items: newArray })
+    }
+    
+    
     deleteItemFromState = (id) => {
       const updatedItems = this.state.items.filter(item => item.id !== id)
       this.setState({ items: updatedItems })
     }
+
+    
 
     render() {
         return (
@@ -47,10 +63,10 @@ export default class UserTable extends Component {
                 </tr>
               </thead>
               <tbody>
-                { this.tabRow() }
+                { this.tabRow(this.updateState, this.deleteItemFromState) }
               </tbody>
             </table>
-            <UserForm buttonLabel="Add User" addItemToState={this.addItemToState} deleteItemFromState={this.deleteItemFromState}/>
+            <UserForm buttonLabel="Add User" addItemToState={this.addItemToState}/>
           </div>
         );
     }

@@ -25,14 +25,9 @@ export default class User extends Component {
         }).then(
             response => response.json()
         ).then(users => {
-            if(Array.isArray(users)) {
-              this.props.addprojectsToState(users[0])
-              this.props.toggle()
-            } else {
-              console.log('failure')
-            }
+            this.props.addItemToState(users)
+            this.props.toggle()
         }).catch(err => console.log(err))
-        this.props.toggle();
     }
     
     submitFormEdit = e => {
@@ -46,15 +41,9 @@ export default class User extends Component {
         }).then(
             response => response.json()
         ).then(users => {
-            if(Array.isArray(users)) {
-                // console.log(projects[0])
-                this.props.updateState(users[0])
-                this.props.toggle()
-            } else {
-                console.log('failure')
-            }
+            this.props.updateState(users)
+            this.props.toggle()
         }).catch(err => console.log(err))
-        this.props.toggle();
     }
 
 

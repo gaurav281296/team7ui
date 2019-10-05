@@ -10,6 +10,14 @@ class UserForm extends Component {
     }
   }
 
+  addItemToState = (item) => {
+    this.props.addItemToState(item);
+  }
+
+  updateState = (item) => {
+    this.props.updateState(item);
+  }
+
   toggle = () => {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -48,6 +56,8 @@ class UserForm extends Component {
           <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
           <ModalBody>
             <User
+              addItemToState = {this.addItemToState}
+              updateState = {this.updateState}
               toggle={this.toggle}
               item={this.props.item} />
           </ModalBody>
