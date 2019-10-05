@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProjectForm from './ProjectForm'
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class ProjectRow extends Component {
 
@@ -26,7 +27,7 @@ class ProjectRow extends Component {
         return (
             <tr>
                 <td>
-                    {this.props.obj.id}
+                <Link to={'/project/'+this.props.obj.id+'/task/'}>{this.props.obj.id}</Link>
                 </td>
                 <td>
                     {this.props.obj.name}

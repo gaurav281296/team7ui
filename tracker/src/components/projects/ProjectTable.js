@@ -36,7 +36,7 @@ export default class ProjectTable extends Component {
     render() {
         return (
           <div>
-            <h3 align="center">Project List</h3>
+            <h3 align="center">All Projects</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
                 <tr>

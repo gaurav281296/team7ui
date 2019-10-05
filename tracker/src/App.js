@@ -29,6 +29,7 @@ class App extends Component {
               <Route exact path='/' component={ ProjectTable } />
               <Route path='/task' component={ TaskTable } />
               <Route path='/user' component={ UserTable } />
+              <Route path='/project/:id/task/' component={TaskTable}/>
           </Switch>
         </div>
       </Router>

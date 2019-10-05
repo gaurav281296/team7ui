@@ -3,7 +3,6 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 export default class Task extends Component {
 
-    //this.props.match.params.id
     state = {
         id: 0,
         name: '',
